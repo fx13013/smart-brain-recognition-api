@@ -22,7 +22,7 @@ const image = require("./controllers/image");
 const db = knex({
   client: "pg",
   connection: {
-    connectString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false },
     host: process.env.DATABASE_HOST,
     port: 5432,
@@ -31,6 +31,14 @@ const db = knex({
     database: process.env.DATABASE_DB,
   },
 });
+
+db.raw("SELECT 1")
+  .then(() => {
+    console.log("Database connection successful");
+  })
+  .catch((error) => {
+    console.error("Error connecting to the database:", error);
+  });
 
 const app = express();
 
@@ -56,6 +64,5 @@ app.put("/image", (req, res) => image.handleImage(req, res, db));
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(process.env);
   console.log(`APP IS RUNNING ON PORT ${PORT}!!!"`);
 });

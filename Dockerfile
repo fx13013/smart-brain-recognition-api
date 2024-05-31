@@ -14,11 +14,12 @@ RUN npm install
 COPY . .
 
 # Ensure wait-for-it.sh is executable
-COPY wait-for-it.sh /app/wait-for-it.sh
-RUN chmod +x /app/wait-for-it.sh
+# COPY wait-for-it.sh /app/wait-for-it.sh
+# RUN chmod +x /app/wait-for-it.sh
 
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Define the command to run the application
-CMD ["./wait-for-it.sh", "postgres:5432", "--", "npm", "start"]
+# CMD ["./wait-for-it.sh", "postgres:5432", "--", "npm", "start"]
+CMD [ "npm", "start" ]

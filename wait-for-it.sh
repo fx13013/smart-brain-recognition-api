@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/sh
+
 # Use this script to test if a given TCP host/port are available
 
 set -e
@@ -24,4 +25,4 @@ fi
 
 echo "$HOST:$PORT is available!"
 
-exec $COMMAND
+exec "$COMMAND"

@@ -65,7 +65,7 @@ app.use(cors());
 app.use(morgan("tiny"));
 
 app.get("/", (req, res) => {
-  res.send("success");
+  res.send("✅success");
 });
 
 app.post("/signin", (req, res) =>

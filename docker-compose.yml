@@ -15,13 +15,9 @@ services:
       - redis
     ports:
       - "3000:3000"
-    # volumes:
-    #   - ./:/app
-    command: ./wait-for-it.sh postgres 5432 -- npm start
+    command: npm start
 
-  # Postgres
   postgres:
-    # image: postgres
     build: ./postgres
     environment:
       POSTGRES_USER: postgres
@@ -30,7 +26,6 @@ services:
     ports:
       - "5432:5432"
 
-  # Redis
   redis:
     image: redis
     ports:

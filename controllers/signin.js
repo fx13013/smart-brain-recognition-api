@@ -3,7 +3,7 @@ const redis = require("redis");
 
 // Setup Redis
 const redisClient = redis.createClient({
-  url: process.env.REDIS_URI,
+  url: process.env.REDIS_URI || "redis://localhost:6379",
 });
 
 redisClient.on("error", (err) => console.log("Redis Client Error", err));

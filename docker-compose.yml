@@ -1,0 +1,37 @@
+services:
+  # Backend
+  smart-brain-api:
+    container_name: backend
+    build: ./
+    working_dir: /app
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sql13013*
+      POSTGRES_DB: smart_brain_docker
+      POSTGRES_HOST: postgres
+      REDIS_URI: redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "3000:3000"
+    # volumes:
+    #   - ./:/app
+    command: ./wait-for-it.sh postgres 5432 -- npm start
+
+  # Postgres
+  postgres:
+    # image: postgres
+    build: ./postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sql13013*
+      POSTGRES_DB: smart_brain_docker
+    ports:
+      - "5432:5432"
+
+  # Redis
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"

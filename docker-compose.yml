@@ -5,11 +5,12 @@ services:
     build: ./
     working_dir: /app
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: sql13013*
-      POSTGRES_DB: smart_brain_docker
-      POSTGRES_HOST: postgres
-      REDIS_URI: redis://redis:6379
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - POSTGRES_HOST
+      - REDIS_URI
+      # - REDIS_URI: redis://redis:6379
     depends_on:
       - postgres
       - redis
@@ -20,9 +21,9 @@ services:
   postgres:
     build: ./postgres
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: sql13013*
-      POSTGRES_DB: smart_brain_docker
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
     ports:
       - "5432:5432"
 

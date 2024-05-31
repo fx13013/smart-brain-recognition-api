@@ -5,6 +5,11 @@ const redis = require("redis");
 const redisClient = redis.createClient({
   url: process.env.REDIS_URI,
   // url: "redis://localhost:6379",
+  // password: process.env.REDIS_PASSWORD,
+  // socket: {
+  //   host: "redis-15827.c55.eu-central-1-1.ec2.redns.redis-cloud.com",
+  //   port: 15827,
+  // },
 });
 
 console.log("Connecting to Redis at:", process.env.REDIS_URI);

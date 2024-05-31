@@ -9,10 +9,10 @@ services:
       POSTGRES_PASSWORD: sql13013*
       POSTGRES_DB: smart_brain_docker
       POSTGRES_HOST: postgres
-      REDIS_URI: redis://redis:6379
+      # REDIS_URI: redis://redis:6379 for development
     depends_on:
       - postgres
-      - redis
+      # - redis for development
     ports:
       - "3000:3000"
     command: npm start
@@ -26,7 +26,8 @@ services:
     ports:
       - "5432:5432"
 
-  redis:
-    image: redis
-    ports:
-      - "6379:6379"
+  # For development
+  # redis:
+  #   image: redis
+  #   ports:
+  #     - "6379:6379"

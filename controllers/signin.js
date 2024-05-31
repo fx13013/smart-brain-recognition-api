@@ -4,6 +4,7 @@ const redis = require("redis");
 // Setup Redis
 const redisClient = redis.createClient({
   url: process.env.REDIS_URI || "redis://localhost:6379",
+  // url: "rediss://red-cpcrvnsf7o1s73fu5f9g:kXRGhZ9nwU5W0JAU5K9vJhjEZGVIzq43@oregon-redis.render.com:6379", for development
 });
 
 redisClient.on("error", (err) => console.log("Redis Client Error", err));

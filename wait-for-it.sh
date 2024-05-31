@@ -10,11 +10,15 @@ shift 2
 TIMEOUT="${WAITFORIT_TIMEOUT:-100}"
 COMMAND="$@"
 
-echo "Waiting for $HOST:$PORT to be available..."
+# Split the host and port from the remaining command
+host_port="$HOST:$PORT"
+remaining_command="$@"
+
+echo "Waiting for $host_port to be available..."
 
 for i in $(seq $TIMEOUT); do
-  nc -z $HOST $PORT && break
-  echo "$i/$TIMEOUT: Waiting for $HOST:$PORT..."
+  nc -z "$host_port" && break
+  echo "$i/$TIMEOUT: Waiting for $host_port..."
   sleep 1
 done
 
@@ -23,6 +27,7 @@ if [ "$i" = "$TIMEOUT" ]; then
   exit 1
 fi
 
-echo "$HOST:$PORT is available!"
+echo "$host_port is available!"
 
-exec "$COMMAND"
+# Execute the remaining command using the 'eval' function
+eval "$remaining_command"

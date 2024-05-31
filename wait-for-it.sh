@@ -10,15 +10,19 @@ shift 2
 TIMEOUT="${WAITFORIT_TIMEOUT:-100}"
 COMMAND="$@"
 
-# Split the host and port from the remaining command
-host_port="$HOST:$PORT"
-remaining_command="$@"
+# Check if HOST and PORT are not empty
+if [ -z "$HOST" ] || [ -z "$PORT" ]; then
+  echo "Error: Host and port must be specified"
+  exit 1
+fi
 
-echo "Waiting for $host_port to be available..."
+echo "Waiting for $HOST:$PORT to be available..."
 
 for i in $(seq $TIMEOUT); do
-  nc -z "$host_port" && break
-  echo "$i/$TIMEOUT: Waiting for $host_port..."
+  if nc -z "$HOST" "$PORT"; then
+    break
+  fi
+  echo "$i/$TIMEOUT: Waiting for $HOST:$PORT..."
   sleep 1
 done
 
@@ -27,7 +31,7 @@ if [ "$i" = "$TIMEOUT" ]; then
   exit 1
 fi
 
-echo "$host_port is available!"
+echo "$HOST:$PORT is available!"
 
 # Execute the remaining command using the 'eval' function
-eval "$remaining_command"
+eval "$COMMAND"
